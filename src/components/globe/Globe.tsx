@@ -8,7 +8,7 @@ import { TextureLoader } from "three";
 
 const Globe = () => {
   return (
-    <Canvas>
+    <Canvas className="w-full h-full">
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
