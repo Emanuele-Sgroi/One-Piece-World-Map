@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Stats, OrbitControls } from "@react-three/drei";
+import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
@@ -12,8 +12,12 @@ const Globe = () => {
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
-      <OrbitControls />
-      <Stats />
+      <OrbitControls
+        minDistance={3.5}
+        maxDistance={5}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={Math.PI - Math.PI / 3}
+      />
     </Canvas>
   );
 };
@@ -28,10 +32,19 @@ const Scene = () => {
     <>
       <ambientLight intensity={1.9} />
       <directionalLight />
-      <mesh>
-        <sphereGeometry args={[2.6, 32, 32]} />
+      <mesh scale={[1, 0.96, 1]}>
+        <sphereGeometry args={[2.8, 35, 35]} />
         <meshStandardMaterial map={onePieceMap} />
       </mesh>
+      <Stars
+        radius={100}
+        depth={50}
+        count={5000}
+        factor={4}
+        saturation={0}
+        fade
+        speed={1}
+      />
     </>
   );
 };
