@@ -1,13 +1,11 @@
 "use client";
 
-import Globe from "@/components/Globe";
+import Globe from "@/components/globe/Globe";
 
 export default function Home() {
   return (
-    <main>
-      <div className="h-screen w-full">
-        <Globe />
-      </div>
+    <main className="h-screen w-full">
+      <Globe />
     </main>
   );
 }
