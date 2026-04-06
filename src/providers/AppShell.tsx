@@ -2,12 +2,13 @@
 
 import React, { useState, createContext } from "react";
 import { ViewMapType, ViewRoutes } from "@/types/types";
+import AppShellUIElementes from "@/components/AppShelll/AppShellUIElementes";
 
 interface props {
   children: React.ReactNode;
 }
 
-const AppShellContext = createContext({
+export const AppShellContext = createContext({
   currentView: ViewMapType.GlobeMap,
   currentRoute: ViewRoutes.routesDisabled,
 });
@@ -20,6 +21,7 @@ const AppShellProvider = ({ children }: props) => {
 
   return (
     <AppShellContext.Provider value={value}>
+      <AppShellUIElementes />
       {children}
     </AppShellContext.Provider>
   );
