@@ -1,18 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls as OrbitControlsType } from "three-stdlib";
 import { Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
+import { AppShellContext } from "@/providers/AppShell";
 
 const Globe = () => {
+  const controlRef = useRef<OrbitControlsType>(null);
+  const { setZoomIn, setZoomOut } = useContext(AppShellContext);
+
+  useEffect(() => {
+    setZoomIn(() => () => {
+      controlRef.current?.object.position.multiplyScalar(0.9);
+      controlRef.current?.update();
+    });
+    setZoomOut(() => () => {
+      controlRef.current?.object.position.multiplyScalar(1.1);
+      controlRef.current?.update();
+    });
+  }, []);
+
   return (
     <Canvas className="w-full h-full">
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
       <OrbitControls
+        ref={controlRef}
         minDistance={3.5}
         maxDistance={5}
         minPolarAngle={Math.PI / 3}
